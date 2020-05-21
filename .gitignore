@@ -1,0 +1,8 @@
+
+img/Fee_blau.jpg
+data/feenbot.db
+*.pyc
+.vscode/launch.json
+feenbot.code-workspace
+snippets/asyncclient.py
+snippets/asyncclient2.py
