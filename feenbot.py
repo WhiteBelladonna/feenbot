@@ -279,27 +279,6 @@ async def update(ctx):
             print(str(ctx.author) + " tried to access command !shutdown! " + str(ctx.author.id))
             return
 
-
-# # # # # # #
-# MANUAL UP #
-# # # # # # #
-@bot.command(name="changeinfo")
-async def changeinfo(ctx):
-    if ctx.prefix == "!":
-        if ctx.author.id == cred.admin:
-            args = ctx.message.content
-            args = args[12:].split(";")
-            arg1 = args[0]
-            arg2 = args[1]
-            ct = util_discord.gameTable(cred.server1)
-            await ct.updateInfo(arg1, arg2)
-            return
-        else:
-            await ctx.message.channel.send("Computer sagt nein.")
-            print(str(ctx.author) + " tried to access command !shutdown! " + str(ctx.author.id))
-            return
-
-
 # # # # # # #
 # NEW TABLE #
 # # # # # # #
