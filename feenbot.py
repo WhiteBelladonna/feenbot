@@ -398,7 +398,7 @@ async def on_ready():
     # get the items needed for running the bot
     cred.grabAll(bot)
     roles1.grabAll(bot, cred.server1)
-    #feedback.grabAll(bot, cred.server)
+    feedback.grabAll(bot, cred.server1)
     #roles.grabAll(bot, cred.server)
     await bot.change_presence(activity=discord.Game(name=cred.gamemsg))
     print('-----------')
