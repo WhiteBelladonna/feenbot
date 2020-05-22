@@ -425,7 +425,16 @@ async def on_ready():
     print('-----------')
     print("Ready!")
     print('-----------')
-    await bot.loop.create_task(asyncio.start_server(echo_handler, '127.0.0.1', 10012, loop=bot.loop))
+    port = 10000
+    while True:
+        try:
+            await bot.loop.create_task(asyncio.start_server(echo_handler, '127.0.0.1', port, loop=bot.loop))
+            print("Launched TCP Server on port: " + str(port))
+            break
+        except:
+            print("Launching TCP on port: " + str(port) + " has failed. Retrying...")
+            port += 1
+            pass
 
 bot.run(cred.token, bot=True, reconnect=True)
 
