@@ -386,7 +386,12 @@ async def deleteTable(newtable):
 @bot.event
 async def on_message(message):
 
+    if message.author == bot.user:
+        return
+
     channel = bot.get_channel(cred.msgchan)
+
+    await bot.process_commands(message)
 
     if message.guild is None and message.author != bot.user:
 
