@@ -156,7 +156,7 @@ async def echo_handler(reader, writer):
 #     if ctx.prefix == "f!":
 #         embed = feedback.genBed(ctx)
 #         await feedback.user.send(" ", embed = embed)
-#         await feedback.channel.send(" ", embed = embed)
+#         await cred.statuschan.send(" ", embed = embed)
 #         return
 
 
@@ -287,6 +287,8 @@ async def newTable(table):
     # get the game id from the received id object
     table_id = up.lookup(table, "table_id")
 
+    channel = bot.get_channel(cred.statuschan)
+
     # check if the game with the given id already exists in the database
     if data.Games().getGame(table_id = table_id) == None:
 
@@ -297,14 +299,14 @@ async def newTable(table):
         
         await ct.createTable(table)
 
-        await feedback.channel.send("New game **" + ct.table_title + "** has been created!")
+        await channel.send("New game **" + ct.table_title + "** has been created!")
 
         return "GameCreated"
 
     # if it already exists, return an error code
     else:
 
-        await feedback.channel.send("Game with the id **" + table_id + "** already exists!")
+        await channel.send("Game with the id **" + table_id + "** already exists!")
 
         return "AlreadyExists"
 
@@ -318,6 +320,8 @@ async def updateTable(newtable):
     # get the game id from the received id object
     table_id = up.lookup(newtable, "table_id")
 
+    channel = bot.get_channel(cred.statuschan)
+
     # check if the game with the given id already exists in the database
     if data.Games().getGame(table_id = table_id) is not None:
 
@@ -330,14 +334,14 @@ async def updateTable(newtable):
             
             await ct.updateTable(old, newtable)
 
-            await feedback.channel.send("Game **" + ct.old_cat_name + "** has been updated to **" + ct.table_title + "**!")
+            await channel.send("Game **" + ct.old_cat_name + "** has been updated to **" + ct.table_title + "**!")
 
             return "GameUpdated"
 
     # if it already exists, return an error code
     else:
 
-        await feedback.channel.send("Game with the id **" + table_id + "** does not exist!")
+        await channel.send("Game with the id **" + table_id + "** does not exist!")
 
         return "GameNotFound"
 
@@ -352,6 +356,8 @@ async def deleteTable(newtable):
     # get the game id from the received id object
     table_id = up.lookup(newtable, "table_id")
 
+    channel = bot.get_channel(cred.statuschan)
+
     # check if the game with the given id already exists in the database
     if data.Games().getGame(table_id = table_id) is not None:
 
@@ -364,14 +370,14 @@ async def deleteTable(newtable):
             
             await ct.deleteTable(old, newtable)
 
-            await feedback.channel.send("Game **" + ct.old_cat_name + "** has been deleted!")
+            await channel.send("Game **" + ct.old_cat_name + "** has been deleted!")
 
             return "GameDeleted"
 
     # if it already exists, return an error code
     else:
 
-        await feedback.channel.send("Game with the id **" + table_id + "** does not exist!")
+        await channel.send("Game with the id **" + table_id + "** does not exist!")
 
         return "GameNotFound"
 

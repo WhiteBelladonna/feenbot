@@ -141,6 +141,7 @@ class Credentials(Database):
         self.server2 = None
         self.gamemsg = self.getData("GAMEMSG")
         self.msgchan = int(self.getData("MSGCHAN"))
+        self.statuschan = int(self.getData("STATUSCHAN"))
 
         return
 
