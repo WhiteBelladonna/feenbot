@@ -125,18 +125,31 @@ class gameTable():
 
                     await channel.edit(name=newname)
 
-                async for message in channel.history(limit=20):
+                async for message in channel.history(limit=40):
 
                     await message.delete()
 
-                message = "__**Runde:**__ " + self.table_title
-                message += "\n__**System:**__ " + self.table_system 
-                message += "\n__**Leiter:**__ @" + str(self.table_lead)
-                message += "\n__**Teaser:**__ " + str(self.table_teaser)
-                message += "\n__**Start:**__ " + str(self.table_start_time.strftime('%a')) + " " + str(self.table_start_time.hour).zfill(2) + ":" + str(self.table_start_time.minute).zfill(2)
-                message += "\n__**Runden-Link:**__ " + "https://feencon.conservices.de/spielrunden_details&id=" + str(self.table_id) + ".html"
+                embed = discord.Embed(title=self.table_title, colour=4360181)
+
+                embed.add_field(name="Runde:", value=self.table_title, inline=False)
+                embed.add_field(name="System:", value=self.table_system, inline=False)
+                embed.add_field(name="Leiter:", value=str(self.table_lead), inline=False)
+
+                starttime = str(self.table_start_time.strftime('%a')) + " " + str(self.table_start_time.hour).zfill(2) + ":" + str(self.table_start_time.minute).zfill(2)
+
+                embed.add_field(name="Start:", value=starttime, inline=False)
+
+                duration = "ca." + str(self.table_duration) + " Stunden"
+
+                embed.add_field(name="Dauer:", value=duration, inline=False)
+
+                link = "https://feencon.conservices.de/spielrunden_details&id=" + str(self.table_id) + ".html"
+
+                linktext = "Zur runde geht es [hier](" + link + ")"
+
+                embed.add_field(name="Rundenlink:", value=linktext, inline=False)
                 
-                await channel.send(message)
+                await channel.send("", embed=embed)
 
         return
 
