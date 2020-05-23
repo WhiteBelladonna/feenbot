@@ -1,6 +1,7 @@
 import discord
 from datetime import datetime
 import util_parse as up
+import util_text as ut
 
 class gameTable():
 
@@ -24,7 +25,7 @@ class gameTable():
         self.table_title = up.lookup(table, "table_title")
         self.table_system = up.lookup(table, "table_system")
         self.table_lead = up.lookup(table, "table_lead")
-        self.table_teaser = up.lookup(table, "table_teaser")
+        self.table_teaser = ut.cleanHTML(up.lookup(table, "table_teaser"))
         self.table_start = up.lookup(table, "table_start")
         self.table_duration = up.lookup(table, "table_duration")
 
@@ -75,7 +76,7 @@ class gameTable():
         self.table_title = up.lookup(table, "table_title")
         self.table_system = up.lookup(table, "table_system")
         self.table_lead = up.lookup(table, "table_lead")
-        self.table_teaser = up.lookup(table, "table_teaser")
+        self.table_teaser = ut.cleanHTML(up.lookup(table, "table_teaser"))
         self.table_start = up.lookup(table, "table_start")
         self.table_duration = up.lookup(table, "table_duration")
 
