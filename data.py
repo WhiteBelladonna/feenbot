@@ -373,7 +373,7 @@ class Games(Database):
             up.lookup(data, "table_title"),
             up.lookup(data, "table_system"),
             up.lookup(data, "table_lead"),
-            up.lookup(data, "table_teaser"),
+            ut.cleanHTML(up.lookup(data, "table_teaser")),
             int(up.lookup(data, "table_start")),
             int(up.lookup(data, "table_duration")))
 
@@ -419,7 +419,7 @@ class Games(Database):
             up.lookup(data, "table_title"),
             up.lookup(data, "table_system"),
             up.lookup(data, "table_lead"),
-            up.lookup(data, "table_teaser"),
+            ut.cleanHTML(up.lookup(data, "table_teaser")),
             int(up.lookup(data, "table_start")),
             int(up.lookup(data, "table_duration")),
             int(up.lookup(data, "table_id")))

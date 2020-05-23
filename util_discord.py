@@ -133,6 +133,7 @@ class gameTable():
                 message += "\n__**Leiter:**__ @" + str(self.table_lead)
                 message += "\n__**Teaser:**__ " + str(self.table_teaser)
                 message += "\n__**Start:**__ " + str(self.table_start_time.strftime('%a')) + " " + str(self.table_start_time.hour).zfill(2) + ":" + str(self.table_start_time.minute).zfill(2)
+                message += "\n__**Runden-Link:**__ " + "https://feencon.conservices.de/spielrunden_details&id=" + str(self.table_id) + ".html"
                 
                 await channel.send(message)
 

@@ -46,3 +46,15 @@ def createHeader(txt):
     header = header + txt + "\n"
     header = header + "==============================**\n"
     return header
+
+def cleanHTML(txt):
+
+    cleaned = txt
+    cleaned = cleaned.replace("$quot;", "\"")
+    cleaned = cleaned.replace("&amp;","&")
+    cleaned = cleaned.replace("&lt;","<")
+    cleaned = cleaned.replace("&gt;",">")
+    cleaned = cleaned.replace("&#039;","\'")
+    cleaned = cleaned.replace("&apos;","\'")
+
+    return cleaned
