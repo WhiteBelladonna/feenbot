@@ -50,7 +50,7 @@ def createHeader(txt):
 def cleanHTML(txt):
 
     cleaned = txt
-    cleaned = cleaned.replace("$quot;", "\"")
+    cleaned = cleaned.replace("&quot;", "\"")
     cleaned = cleaned.replace("&amp;","&")
     cleaned = cleaned.replace("&lt;","<")
     cleaned = cleaned.replace("&gt;",">")
