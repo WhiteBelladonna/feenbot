@@ -139,13 +139,13 @@ class gameTable():
 
                 embed.add_field(name="Start:", value=starttime, inline=False)
 
-                duration = "ca." + str(self.table_duration) + " Stunden"
+                duration = "ca. " + str(self.table_duration) + " Stunden"
 
                 embed.add_field(name="Dauer:", value=duration, inline=False)
 
                 link = "https://feencon.conservices.de/spielrunden_details&id=" + str(self.table_id) + ".html"
 
-                linktext = "Zur runde geht es [hier](" + link + ")"
+                linktext = "Zum Rundenaushang geht es [hier](" + link + ")"
 
                 embed.add_field(name="Rundenlink:", value=linktext, inline=False)
                 
