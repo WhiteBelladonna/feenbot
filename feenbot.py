@@ -392,7 +392,22 @@ async def deleteTable(newtable):
 
         return "GameNotFound"
 
-    return  
+    return 
+
+# # # # # # #
+# ! PRUNE ! #
+# # # # # # #
+@bot.command(name="prune")
+async def update(ctx):
+    if ctx.prefix == "!":
+        if ctx.author.id == cred.admin:
+            async for message in ctx.channel.history(limit=50):
+                await message.delete()
+            return
+        else:
+            await ctx.message.channel.send("Computer sagt nein.")
+            print(str(ctx.author) + " tried to access command !shutdown! " + str(ctx.author.id))
+            return
 
 @bot.event
 async def on_message(message):
