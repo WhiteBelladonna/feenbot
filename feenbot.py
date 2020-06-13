@@ -35,8 +35,7 @@ faq = data.FAQReplies()
 feedback = data.Feedback()
 
 # object that stores all the roles
-roles1 = data.Roles()
-roles2 = data.Roles()
+roles = data.Roles()
 
 # object for the faqchannel
 faqchannel = data.FAQChannel()
@@ -167,25 +166,32 @@ async def echo_handler(reader, writer):
 async def on_raw_reaction_add(payload):
 
     # iterate through all the roles and check for a fitting one
-    for role in roles1.roles:
+    for role in roles.roles:
         
         # if the message id matches a role id, and the emoji is correct
         if payload.message_id == role.rolemsg and payload.emoji.name == role.emojiname:
 
-            # grab the user
-            user = discord.utils.get(cred.server1.members, id=payload.user_id)
+            for server in cred.serverlist:
+
+                if server.id == role.serverid:
+
+                    # grab the user
+                    user = discord.utils.get(server.members, id=payload.user_id)
 
             # if the user is not in the members of the role
-            if user not in role.role.members:
+            try:
+                if user not in role.role.members:
 
-                # add the user to the role
-                await user.add_roles(role.role)
-                print("Added " + str(user) + " to " + str(role.role) +" role!")
-                return
+                    # add the user to the role
+                    await user.add_roles(role.role)
+                    print("Added " + str(user) + " to " + str(role.role) +" role!")
+                    return
 
-            else:
-                print(str(user) + " already has the " + str(role.role) + " role!")
-                return
+                else:
+                    print(str(user) + " already has the " + str(role.role) + " role!")
+                    return
+            except:
+                pass
 
     return
 
@@ -195,20 +201,25 @@ async def on_raw_reaction_add(payload):
 @bot.event
 async def on_raw_reaction_remove(payload):
 
+
     # iterate through all the roles and check for a fitting one
-    for role in roles1.roles:
+    for role in roles.roles:
         
         # if the message id matches a role id, and the emoji is correct
         if payload.message_id == role.rolemsg and payload.emoji.name == role.emojiname:
 
-            # grab the user
-            user = discord.utils.get(cred.server1.members, id=payload.user_id)
+            for server in cred.serverlist:
+
+                if server.id == role.serverid:
+
+                    # grab the user
+                    user = discord.utils.get(server.members, id=payload.user_id)
 
             # if the role is the master role:
             if role.isMaster == 1:
 
                 # iterate through all the roles and kick the user out of every single one
-                for role2 in roles1.roles:
+                for role2 in roles.roles:
                     try:
                         await user.remove_roles(role2.role)
                     except:
@@ -408,7 +419,7 @@ async def on_ready():
     print('-----------')
     # get the items needed for running the bot
     cred.grabAll(bot)
-    roles1.grabAll(bot, cred.server1)
+    roles.grabAll(bot, cred.serverlist)
     feedback.grabAll(bot, cred.server1)
     #roles.grabAll(bot, cred.server)
     await bot.change_presence(activity=discord.Game(name=cred.gamemsg))

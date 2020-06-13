@@ -152,6 +152,8 @@ class Credentials(Database):
         self.server2 = bot.get_guild(self.serverid2)
         print("loaded Server: " + str(self.server2))
 
+        self.serverlist = [self.server1, self.server2]
+
         return 
 
 # class that stores all the FAQ Data
@@ -328,16 +330,21 @@ class Roles(Database):
 
         for item in self.getROLE():
 
-            self.roles.append(Role(item[1], item[2], item[3], item[4]))
+            self.roles.append(Role(item[1], item[2], item[3], item[4], item[6]))
 
         return
 
-    def grabAll(self, bot, server):
+    def grabAll(self, bot, serverlist):
 
         for role in self.roles:
-            role.role = discord.utils.get(server.roles, id=role.roleid)
-            role.emoji = discord.utils.get(server.emojis, name=role.emojiname)
-            print("Loaded Role: " + str(role.role) + " and corresponding emoji: " + str(role.emoji.name))
+
+            for server in serverlist:
+
+                if role.serverid == server.id:
+
+                    role.role = discord.utils.get(server.roles, id=role.roleid)
+                    role.emoji = discord.utils.get(server.emojis, name=role.emojiname)
+                    print("Loaded Role: " + str(role.role) + " and corresponding emoji: " + str(role.emoji.name))
 
         return
 
@@ -474,7 +481,7 @@ class Games(Database):
 
 class Role(Database):
 
-    def __init__(self, roleid, rolemsg, roleemojiname, ismaster):
+    def __init__(self, roleid, rolemsg, roleemojiname, ismaster, serverid):
 
         self.roleid = int(roleid)
         self.role = None
@@ -482,6 +489,7 @@ class Role(Database):
         self.emojiname = roleemojiname
         self.emoji = None
         self.isMaster = int(ismaster)
+        self.serverid = serverid
 
         return
 
