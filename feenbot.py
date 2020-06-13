@@ -398,7 +398,7 @@ async def deleteTable(newtable):
 # ! PRUNE ! #
 # # # # # # #
 @bot.command(name="prune")
-async def update(ctx):
+async def prune(ctx):
     if ctx.prefix == "!":
         if ctx.author.id == cred.admin:
             async for message in ctx.channel.history(limit=50):
@@ -406,7 +406,7 @@ async def update(ctx):
             return
         else:
             await ctx.message.channel.send("Computer sagt nein.")
-            print(str(ctx.author) + " tried to access command !shutdown! " + str(ctx.author.id))
+            print(str(ctx.author) + " tried to access command prune! " + str(ctx.author.id))
             return
 
 @bot.event
