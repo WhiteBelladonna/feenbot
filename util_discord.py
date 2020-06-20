@@ -191,3 +191,263 @@ class gameTable():
         return
 
 
+class Permissions():
+
+    def __init__(self, server):
+
+        self.groups = {
+            "Fairy Pearls": 699293101080182877,
+            "Würfel-Meister": 699311346055118863,
+            "Fabienne Siegmund": 699316903578959934,
+            "Schirakis Illustrationen": 699317010697551962,
+            "Karsten Zingsheim": 699317086270259271,
+            "Phantagrafie": 699317137000497204,
+            "Die Zeitreisende": 699317176921751723,
+            "Drachenwinter": 699322902142648434,
+            "Bernhard Hennen und Robert Corvus": 699317214146330704,
+            "storylike Gmbh": 699317397445673162,
+            "Vanessa Tolentino": 699317299831636100,
+            "Elegance of Crafting": 699317454312308817,
+            "CATcraft": 699317546314104933,
+            "Lysandra Books Verlag": 699317594922156062,
+            "Heinrich Tüffers Verlag": 699317635736666174,
+            "Truant UG": 699317649758486588,
+            "Yvis Nerd and Geek World": 699317674546692177,
+            "Sphärenmeisters Spiele": 699317676350373890,
+            "Uhrwerk Verlag": 699317677587693638,
+            "Pegasus Spiele GmbH": 699317680137699400,
+            "Shadodex - Verlag der Schatten": 699317681295196230,
+            "Paper Adventures e.V.": 699317696634028144,
+            "Janika Hoffmann": 699317697954971719,
+            "Tiny Demons": 699317699075113010,
+            "Jessica Bernett": 699317699280633921,
+            "Verlag Torsten Low": 699317699934945281,
+            "Francis Bergen": 699317701470060584,
+            "Florian Clever": 699317701939691560,
+            "Lisa Dröttboom": 699317702308921356,
+            "Glauconar Yue": 699317703801831495,
+            "Artificus": 699317704070397992,
+            "Märchenspinnerei": 699317704976498849,
+            "Ulf Fildebrandt": 699317705781674119,
+            "Don Kringel": 699317706763272224,
+            "Laura Kier": 699317707354407002,
+            "Sandra Florean": 699317708042534913,
+            "Atelier Tag Eins": 699317709099368579,
+            "Nordlichtphantasten": 699317709820788846,
+            "Jeanette Peters": 699317710823096351,
+            "Katha's Artworks": 699317711498510429,
+            "Lars Czekalla & Janina Robben": 699317712278650881,
+            "Chrissis Traumladen": 699317713142546554,
+            "Philipp Börner": 699317713776017540,
+            "hartplastikbehaelter": 699317715009273857,
+            "Linestyle Artwork": 699317715529367582,
+            "Minni": 699317716225490985,
+            "JP Stories": 699317717676851401,
+            "NordCon GbR": 699317717995356270,
+            "Metwabe": 699317719065165896,
+            "HeldenWelten": 699317720289771590,
+            "52": 699317720990351460,
+            "53": 699317722093453403,
+            "54": 699317722680393859,
+            "55": 699317723792015431,
+            "56": 699317724332949565,
+            "57": 699317725155164281,
+            "58": 699317726447140954,
+            "59": 699317726694473779,
+            "60": 699317727579471974,
+            "61": 699317728514801685,
+            "62": 699317729169113149,
+            "63": 699317729785675818,
+            "64": 699317730867806340,
+            "65": 699317731953999902,
+            "66": 699317732621156402,
+            "67": 699317733590040647,
+            "68": 699317734281969806,
+            "69": 699317735074562114,
+            "70": 699317736047771688,
+            "71": 699317736853078066,
+            "72": 699317738190929972,
+            "73": 699317738308370443,
+            "74": 699317739499814943,
+            "75": 699317740435013703,
+            "76": 699317741919928442,
+            "77": 699317742515257406,
+            "78": 699317744176332890,
+            "79": 699317744734306504,
+            "80": 699317745564778567,
+            "81": 699317747099631657,
+            "82": 699317747259015189,
+            "83": 699317748353859616,
+            "84": 699317750048489553,
+            "85": 699320538245628055,
+            "86": 699320517160861706,
+            "87": 699320518859423785,
+            "88": 699320520386281542,
+            "89": 699320521925460028,
+            "90": 699320523607244931,
+            "91": 699320525054410834,
+            "92": 699320526551908397,
+            "93": 699320530897076365,
+            "94": 699320532809547806,
+            "95": 699320534764224702,
+            "96": 699320536366448661,
+            "97": 699320515478814742,
+            "98": 699320893289267312,
+            "99": 699320897961459814,
+            }
+
+        self.roles = {
+            "guests": 699280541798760469,
+            "editor": 699241660034318407,
+        }
+
+        self.server = server
+
+        self.vendor_cat = discord.PermissionOverwrite(
+            read_messages = True,
+            send_messages = True,
+            read_message_history = True,
+            manage_messages = True,
+            mute_members= True,
+            deafen_members= True,
+            move_members= True,
+            priority_speaker=True
+        )
+
+        self.default_cat = discord.PermissionOverwrite(
+            read_messages = False,
+            send_messages = False,
+            read_message_history = False
+        )
+
+        self.guest = discord.PermissionOverwrite(
+            read_messages = True,
+            send_messages = True,
+            read_message_history = True
+        )
+
+        self.vendor_txt = discord.PermissionOverwrite(
+            read_messages = True,
+            send_messages = True,
+            read_message_history = True,
+            manage_messages = True
+        )
+
+        self.vendor_role = discord.Permissions(
+            create_instant_invite = False,
+            kick_members = False,
+            ban_members = False,
+            administrator = False,
+            manage_channels = False,
+            manage_guild = False,
+            add_reactions = True,
+            view_audit_log = False,
+            priority_speaker = False,
+            stream = True,
+            read_messages = True,
+            view_channel = True,
+            send_messages = True,
+            send_tts_messages = False,
+            manage_messages = False,
+            embed_links = True,
+            attach_files = True,
+            read_message_history = True,
+            mention_everyone = False,
+            external_emojis = True,
+            view_guild_insights = False,
+            connect = True,
+            speak = True,
+            mute_members = False,
+            deafen_members = False,
+            move_members = False,
+            use_voice_activation = True,
+            change_nickname = True,
+            manage_nicknames = False,
+            manage_roles = False,
+            manage_permissions = False,
+            manage_webhooks = False,
+            manage_emojis = False,
+        )
+
+        return
+
+    async def readPerms(self):
+
+        print("\n Fixing Permissions for:")
+
+        for category in self.server.categories:
+
+            if category.name in self.groups:
+                print("\n------------------------")
+                print(category.name + "\n")
+
+                vendorID = self.groups.get(category.name)
+                guestID = self.roles.get("guests")
+                editorID = self.roles.get("editor")
+
+                print("Fetching Roles:")
+
+                vendorrole = discord.utils.get(self.server.roles, id=vendorID)
+                guestrole = discord.utils.get(self.server.roles, id=guestID)
+                editorrole = discord.utils.get(self.server.roles, id=editorID)
+
+                print("   - " + vendorrole.name)
+                print("   - " + guestrole.name)
+                print("   - " + editorrole.name)
+
+                print("\nApplying new Permissions")
+                
+                if len(category.name) == 2:
+                    await category.set_permissions(self.server.default_role,  overwrite=self.default_cat)
+                    await category.set_permissions(vendorrole, overwrite=self.vendor_cat)
+                    await category.set_permissions(guestrole, overwrite=self.guest)
+                    await category.set_permissions(editorrole, read_messages=True, send_messages=True, read_message_history=True)
+
+                else:
+                    await category.set_permissions(self.server.default_role, overwrite=self.default_cat)
+                    await category.set_permissions(vendorrole, overwrite=self.vendor_cat)
+                    await category.set_permissions(guestrole, overwrite=self.guest)
+
+                print("\nApplying Sync to Channels:")
+
+                for channel in category.channels:
+
+                    print("   - " + channel.name)
+
+                    await channel.edit(sync_permissions=True)
+
+                if len(category.name) > 2:
+
+                    print("\nEditing Vendor Channel")
+
+                    for channel in category.channels:
+
+                        if channel.name.startswith("stand-von"):
+
+                            print("   - " + channel.name)
+
+                            await channel.edit(sync_permissions=False)
+                            await channel.set_permissions(guestrole, overwrite=self.guest)
+                            await channel.set_permissions(vendorrole, overwrite=self.vendor_txt)
+
+                else:
+
+                    print("\nLeerer Stand")
+                    
+        return
+
+
+    async def fixServerPerms(self):
+
+        print("\n Fixing Permissions for:")
+
+        for role in self.server.roles:
+
+            if role.name in self.groups:
+
+                print("\n------------------------")
+                print(role.name + "\n")
+                
+                await role.edit(permissions=self.vendor_role)
+
+        return

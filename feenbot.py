@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 import random
 import subprocess
@@ -44,6 +44,30 @@ faqchannel = data.FAQChannel()
 fuzzy = [90,82]
 mirnchance = 42
 
+# # # # # # # # # # 
+# S C H E D U L E #
+# # # # # # # # # # 
+
+# class RoleChecker(commands.Cog):
+
+#     def __init__(self, bot):
+
+#         self.bot = bot
+#         self.printer.start()
+
+#     def cog_unload(self):
+#         self.printer.cancel()
+
+#     @tasks.loop(hours=1)
+#     async def printer(self):
+
+#         print("TESTING")
+
+#     @printer.before_loop
+#     async def before_printer(self):
+#         print('waiting...')
+#         await self.bot.wait_until_ready()
+
 
 async def echo_handler(reader, writer):
 
@@ -81,82 +105,6 @@ async def echo_handler(reader, writer):
 
     print("Close the client socket")
     writer.close()
-
-
-# # # # # # #
-#  F  A  Q  #
-# # # # # # #
-
-# @bot.command(name="aq")
-# @commands.cooldown(1, 5, commands.BucketType.user)
-# async def aq(ctx):
-
-#     # if the user asks for a german command
-#     if ctx.prefix == "f!":
-
-#         # grab the message text and parse it (remove leetspeak, create upper)
-#         msg = ut.faqParse(str(ctx.message.content[5:]))
-
-#         # iterate through the faq objects
-#         for faqobject in faq.objects:
-#             for trigger in faqobject.trig_de:
-#                 if fuzz.ratio(msg, trigger.upper()) > fuzzy[0]:
-#                     await ctx.message.channel.send(" ", embed=faqobject.embed_de)
-#                     return
-#                 elif fuzz.ratio(msg, trigger.upper()) > fuzzy[1]:
-#                     await ctx.message.channel.send(" ", embed=faqobject.embed_de)  
-#                     return
-
-#         # if no command can be found:
-#         await ctx.send("Diesen Befehl kenne ich leider nicht. Schau doch mal in der Übersicht nach", embed=faq.help_de)
-#         return
-
-#     # if the user asks for an english command
-#     elif ctx.prefix == "fe!":
-        
-#         # grab the message text and parse it (remove leetspeak, create upper)
-#         msg = ut.faqParse(str(ctx.message.content[5:]))
-
-#         # iterate through the faq objects
-#         for faqobject in faq.objects:
-#             for trigger in faqobject.trig_en:
-#                 if fuzz.ratio(msg, trigger.upper()) > fuzzy[0]:
-#                     await ctx.message.channel.send(" ", embed=faqobject.embed_en)  
-#                     return
-#                 elif fuzz.ratio(msg, trigger.upper()) > fuzzy[1]:
-#                     await ctx.message.channel.send(" ", embed=faqobject.embed_en)  
-#                     return
-
-#         # if no command can be found
-#         await ctx.send("I don't know this command. Try checking the overview for some help:", embed=faq.help_en)
-#     return
-
-# # # # # # # #
-# #  H E L P  #
-# # # # # # # #
-# @bot.command(name="help")
-# @commands.cooldown(1, 10, commands.BucketType.user)
-# async def help(ctx):
-#     if ctx.prefix == "f!":
-#         await ctx.send(" ", embed=faq.help_de)
-#         return
-
-#     elif ctx.prefix == "fe!":
-#         await ctx.send(" ", embed=faq.help_en)
-#         return
-
-
-# # # # # # # #
-# # FEEDBACK  #
-# # # # # # # #
-# @bot.command(name="eedback")
-# @commands.cooldown(1, 10, commands.BucketType.user)
-# async def eedback(ctx):
-#     if ctx.prefix == "f!":
-#         embed = feedback.genBed(ctx)
-#         await feedback.user.send(" ", embed = embed)
-#         await cred.statuschan.send(" ", embed = embed)
-#         return
 
 
 # # # # # # #
@@ -409,6 +357,55 @@ async def prune(ctx):
             print(str(ctx.author) + " tried to access command prune! " + str(ctx.author.id))
             return
 
+# # # # # # # 
+# FIX PERMS #
+# # # # # # # 
+
+@bot.command(name="fix")
+async def fix(ctx):
+
+    if ctx.prefix == "!":
+        if ctx.author.id == cred.admin:
+
+            await ctx.message.channel.send("Repariere Berechtigungen für Händlerkanäle..")
+
+            start = datetime.datetime.now()
+
+            utd = util_discord.Permissions(cred.server2)
+
+            await utd.readPerms()
+
+            end = datetime.datetime.now()
+
+            duration = end-start
+
+            await ctx.message.channel.send("Berechtigungen repariert. Dauer: " + str(duration.total_seconds()) + " Sekunden")
+
+            return
+
+@bot.command(name="fixRoles")
+async def fixRoles(ctx):
+
+    if ctx.prefix == "!":
+        if ctx.author.id == cred.admin:
+
+            await ctx.message.channel.send("Repariere Berechtigungen für Händlerrollen..")
+
+            start = datetime.datetime.now()
+
+            utd = util_discord.Permissions(cred.server2)
+
+            await utd.fixServerPerms()
+
+            end = datetime.datetime.now()
+
+            duration = end-start
+
+            await ctx.message.channel.send("Berechtigungen repariert. Dauer: " + str(duration.total_seconds()) + " Sekunden")
+
+            return
+
+
 @bot.event
 async def on_message(message):
 
@@ -424,6 +421,8 @@ async def on_message(message):
         msg = str(message.author) + " hat eine Nachricht hinterlassen: \n" + message.content
 
         await channel.send(msg)
+
+# bot.add_cog(RoleChecker(bot))
 
 @bot.event
 async def on_ready():
@@ -441,6 +440,7 @@ async def on_ready():
     print('-----------')
     print("Ready!")
     print('-----------')
+
     port = 10000
     while True:
         try:
