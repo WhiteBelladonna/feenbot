@@ -299,6 +299,7 @@ class Permissions():
         self.roles = {
             "guests": 699280541798760469,
             "editor": 699241660034318407,
+            "team": 699276860713992302,
         }
 
         self.server = server
@@ -320,9 +321,27 @@ class Permissions():
             read_message_history = False
         )
 
-        self.guest = discord.PermissionOverwrite(
+        self.guest_cat = discord.PermissionOverwrite(
             read_messages = True,
             send_messages = True,
+            read_message_history = True
+        )
+
+        self.guest_txt = discord.PermissionOverwrite(
+            read_messages = True,
+            send_messages = False,
+            read_message_history = True
+        )
+
+        self.team_cat = discord.PermissionOverwrite(
+            read_messages = True,
+            send_messages = True,
+            read_message_history = True
+        )
+
+        self.team_txt = discord.PermissionOverwrite(
+            read_messages = True,
+            send_messages = False,
             read_message_history = True
         )
 
@@ -384,29 +403,33 @@ class Permissions():
                 vendorID = self.groups.get(category.name)
                 guestID = self.roles.get("guests")
                 editorID = self.roles.get("editor")
+                teamID = self.roles.get("team")
 
                 print("Fetching Roles:")
 
                 vendorrole = discord.utils.get(self.server.roles, id=vendorID)
                 guestrole = discord.utils.get(self.server.roles, id=guestID)
                 editorrole = discord.utils.get(self.server.roles, id=editorID)
+                teamrole = discord.utils.get(self.server.roles, id=teamID)
 
                 print("   - " + vendorrole.name)
                 print("   - " + guestrole.name)
                 print("   - " + editorrole.name)
+                print("   - " + teamrole.name)
 
                 print("\nApplying new Permissions")
                 
                 if len(category.name) == 2:
                     await category.set_permissions(self.server.default_role,  overwrite=self.default_cat)
                     await category.set_permissions(vendorrole, overwrite=self.vendor_cat)
-                    await category.set_permissions(guestrole, overwrite=self.guest)
+                    await category.set_permissions(guestrole, overwrite=self.guest_cat)
                     await category.set_permissions(editorrole, read_messages=True, send_messages=True, read_message_history=True)
 
                 else:
                     await category.set_permissions(self.server.default_role, overwrite=self.default_cat)
                     await category.set_permissions(vendorrole, overwrite=self.vendor_cat)
-                    await category.set_permissions(guestrole, overwrite=self.guest)
+                    await category.set_permissions(guestrole, overwrite=self.guest_cat)
+                    await channel.set_permissions(teamrole, overwrite=self.team_cat)
 
                 print("\nApplying Sync to Channels:")
 
@@ -427,7 +450,8 @@ class Permissions():
                             print("   - " + channel.name)
 
                             await channel.edit(sync_permissions=False)
-                            await channel.set_permissions(guestrole, overwrite=self.guest)
+                            await channel.set_permissions(guestrole, overwrite=self.guest_txt)
+                            await channel.set_permissions(teamrole, overwrite=self.team_txt)
                             await channel.set_permissions(vendorrole, overwrite=self.vendor_txt)
 
                 else:
