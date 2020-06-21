@@ -429,7 +429,7 @@ class Permissions():
                     await category.set_permissions(self.server.default_role, overwrite=self.default_cat)
                     await category.set_permissions(vendorrole, overwrite=self.vendor_cat)
                     await category.set_permissions(guestrole, overwrite=self.guest_cat)
-                    await channel.set_permissions(teamrole, overwrite=self.team_cat)
+                    await category.set_permissions(teamrole, overwrite=self.team_cat)
 
                 print("\nApplying Sync to Channels:")
 
