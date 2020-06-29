@@ -98,7 +98,6 @@ async def echo_handler(reader, writer):
     elif table_request == "delete":
 
         result = await deleteTable(table)
-
         
     resulta = result.encode()
     print("Send: %r" % resulta)
@@ -262,8 +261,9 @@ async def newTable(table):
 
         await channel.send("New game **" + ct.table_title + "** has been created!")
 
-        return "GameCreated;" + str(ct.invite)
-        # now also returns the invite
+        returner = "GameCreated;" + str(ct.invite)
+
+        return returner
 
     # if it already exists, return an error code
     else:
