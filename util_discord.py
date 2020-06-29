@@ -73,19 +73,13 @@ class gameTable():
 
     async def createInvite(self, category):
 
-        invite = ""
-
         for channel in category.channels:
 
             if channel.name == "_spieltisch":
 
                 invite = await channel.create_invite()
 
-                break
-
-        return invite
-
-
+                return invite.url
 
 
     async def updateTable(self, old, table):
