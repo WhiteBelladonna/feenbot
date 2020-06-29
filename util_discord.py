@@ -64,18 +64,26 @@ class gameTable():
         await self.category.create_voice_channel(name="spieltisch")
         await self.category.create_voice_channel(name="stille kammer")
 
-        for channel in self.category.channels:
-
-            if channel.name == "_spieltisch":
-
-                self.invite = await channel.create_invite()
-
-                break
+        self.invite = await createInvite(self.category)
 
         # get the status channel as an update
         await self.infoMessage(self.category)
 
         return
+
+    async def createInvite(self, category):
+
+        for channel in category.channels:
+
+            if channel.name == "_spieltisch":
+
+                invite = await channel.create_invite()
+
+                break
+
+        return invite
+
+
 
 
     async def updateTable(self, old, table):
