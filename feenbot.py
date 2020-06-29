@@ -261,6 +261,7 @@ async def newTable(table):
         await channel.send("New game **" + ct.table_title + "** has been created!")
 
         return "GameCreated;" + str(ct.invite)
+        # now also returns the invite
 
     # if it already exists, return an error code
     else:
