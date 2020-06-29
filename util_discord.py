@@ -64,7 +64,7 @@ class gameTable():
         await self.category.create_voice_channel(name="spieltisch")
         await self.category.create_voice_channel(name="stille kammer")
 
-        async for channel in self.category.channels:
+        for channel in self.category.channels:
 
             if channel.name == "_spieltisch":
 
