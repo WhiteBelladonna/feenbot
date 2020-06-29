@@ -15,6 +15,7 @@ class gameTable():
         self.table_teaser = None
         self.table_start = None
         self.table_duration = None
+        self.invite = None
 
         return
 
@@ -59,9 +60,17 @@ class gameTable():
         }
 
         await self.category.create_text_channel(name=self.info, overwrites=overwrites)
-        await self.category.create_text_channel(name="spieltisch")
+        await self.category.create_text_channel(name="_spieltisch")
         await self.category.create_voice_channel(name="spieltisch")
         await self.category.create_voice_channel(name="stille kammer")
+
+        async for channel in self.category.channels:
+
+            if channel.name == "_spieltisch":
+
+                self.invite = await channel.create_invite()
+
+                break
 
         # get the status channel as an update
         await self.infoMessage(self.category)
