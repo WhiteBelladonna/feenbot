@@ -77,6 +77,8 @@ async def echo_handler(reader, writer):
     msg = "Received %r from %r" % (message, addr)
     print(msg)
 
+    result = ""
+
     table = message.replace("\n","").split(".|.")
 
     for i in range(len(table)):
