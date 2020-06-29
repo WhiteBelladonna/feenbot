@@ -77,8 +77,6 @@ async def echo_handler(reader, writer):
     msg = "Received %r from %r" % (message, addr)
     print(msg)
 
-    result = ""
-
     table = message.replace("\n","").split(".|.")
 
     for i in range(len(table)):
@@ -86,6 +84,8 @@ async def echo_handler(reader, writer):
         table[i] = table[i].split("-|-")
 
     table_request = up.lookup(table, "table_request")
+
+    result = ""
 
     if table_request == "new":
 
@@ -100,9 +100,9 @@ async def echo_handler(reader, writer):
         result = await deleteTable(table)
 
         
-    result = result.encode()
-    print("Send: %r" % result)
-    writer.write(result)
+    resulta = result.encode()
+    print("Send: %r" % resulta)
+    writer.write(resulta)
     await writer.drain()
 
     print("Close the client socket")
