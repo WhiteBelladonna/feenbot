@@ -261,7 +261,7 @@ async def newTable(table):
 
         await channel.send("New game **" + ct.table_title + "** has been created!")
 
-        returner = "GameCreated;" + str(ct.invite)
+        returner = "GameCreated.|." + str(ct.invite)
 
         return returner
 
@@ -270,7 +270,7 @@ async def newTable(table):
 
         await channel.send("Game with the id **" + table_id + "** already exists!")
 
-        return "AlreadyExists;"
+        return "AlreadyExists.|."
 
     return
 
@@ -298,14 +298,14 @@ async def updateTable(newtable):
 
             await channel.send("Game **" + ct.old_cat_name + "** has been updated to **" + ct.table_title + "**!")
 
-            return "GameUpdated;"
+            return "GameUpdated.|."
 
     # if it already exists, return an error code
     else:
 
         await channel.send("Game with the id **" + table_id + "** does not exist!")
 
-        return "GameNotFound;"
+        return "GameNotFound.|."
 
     return
 
@@ -334,14 +334,14 @@ async def deleteTable(newtable):
 
             await channel.send("Game **" + ct.old_cat_name + "** has been deleted!")
 
-            return "GameDeleted;"
+            return "GameDeleted.|."
 
     # if it already exists, return an error code
     else:
 
         await channel.send("Game with the id **" + table_id + "** does not exist!")
 
-        return "GameNotFound;"
+        return "GameNotFound.|."
 
     return 
 
