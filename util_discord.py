@@ -501,24 +501,41 @@ class Permissions():
 
         catlist = []
 
-        for category in self.server.categories:
+        for channel in self.server.channels:
 
-            if category.name in self.groups and len(category.name) > 2:
-                
-                catlist.append(category.id)
+            if channel.name.startswith("stand-von-") and len(channel.name[10:]) > 2:
 
-        
-        embed = discord.Embed(title="Übersicht aller Händler")
+                catlist.append(channel.name)
 
         catlist = sorted(catlist)
 
-        for item in catlist:
+        print(catlist)
 
-            vendorid = "<#" + str(item) + ">"
+        catlist2 = []
 
-            embed.add_field(name="", value=vendorid)
+        for name in catlist:
 
+            for channel in self.server.channels:
 
-        await ctx.message.channel.send("", embed=embed)
+                if channel.name == name:
+
+                    catlist2.append(channel.id)
+
+        embed = discord.Embed(title="Übersicht aller Händler")
+
+        vendorid = ""
+
+        for i in range(1,len(catlist2)+1):
+
+            vendorid += "<#" + str(catlist2[i-1]) + ">\n"
+
+            if i % 10 == 0:
+
+                embed.add_field(name=".", value=vendorid, inline=False)
+                vendorid = ""
+        
+        embed.add_field(name=".", value=vendorid, inline=False)
+
+        await ctx.message.channel.send(" ", embed=embed)
 
         return
