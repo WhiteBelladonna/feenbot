@@ -211,7 +211,6 @@ class Permissions():
         self.groups = {
             "Fairy Pearls": 699293101080182877,
             "Würfel-Meister": 699311346055118863,
-            "Fabienne Siegmund": 699316903578959934,
             "Schirakis Illustrationen": 699317010697551962,
             "Karsten Zingsheim": 699317086270259271,
             "Phantagrafie": 699317137000497204,
@@ -268,7 +267,7 @@ class Permissions():
             "Alea Libris Verlag": 699317726447140954,
             "DORP GbR": 699317726694473779,
             "DreieichCon": 699317727579471974,
-            "61": 699317728514801685,
+            "Nornennetz": 699317728514801685,
             "62": 699317729169113149,
             "63": 699317729785675818,
             "64": 699317730867806340,
