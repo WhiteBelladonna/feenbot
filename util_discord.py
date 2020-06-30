@@ -346,6 +346,12 @@ class Permissions():
             read_message_history = True
         )
 
+        self.guest_invis = discord.PermissionOverwrite(
+            read_messages = False,
+            send_messages = False,
+            read_message_history = False
+        )
+
         self.team_cat = discord.PermissionOverwrite(
             read_messages = True,
             send_messages = True,
@@ -401,6 +407,8 @@ class Permissions():
             manage_emojis = False,
         )
 
+
+
         return
 
     async def readPerms(self):
@@ -435,7 +443,7 @@ class Permissions():
                 if len(category.name) == 2:
                     await category.set_permissions(self.server.default_role,  overwrite=self.default_cat)
                     await category.set_permissions(vendorrole, overwrite=self.vendor_cat)
-                    await category.set_permissions(guestrole, overwrite=self.guest_cat)
+                    await category.set_permissions(guestrole, overwrite=self.guest_invis)
                     await category.set_permissions(editorrole, read_messages=True, send_messages=True, read_message_history=True)
 
                 else:
