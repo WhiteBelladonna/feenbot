@@ -408,6 +408,18 @@ async def fixRoles(ctx):
 
             return
 
+@bot.command(name="showVendors")
+async def showVendors(ctx):
+
+    if ctx.prefix == "!":
+        if ctx.author.id == cred.admin:
+
+            utd = util_discord.Permissions(cred.server2)
+
+            await utd.printVendors(ctx)
+
+            return
+
 
 @bot.event
 async def on_message(message):

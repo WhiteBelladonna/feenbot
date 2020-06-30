@@ -495,3 +495,30 @@ class Permissions():
                 await role.edit(permissions=self.vendor_role)
 
         return
+
+
+    async def printVendors(self, ctx):
+
+        catlist = []
+
+        for category in self.server.categories:
+
+            if category.name in self.groups and len(category.name) > 2:
+                
+                catlist.append(category.id)
+
+        
+        embed = discord.Embed(title="Übersicht aller Händler")
+
+        catlist = sorted(catlist)
+
+        for item in catlist:
+
+            vendorid = "<#" + str(item) + ">"
+
+            embed.add_field(name="", value=vendorid)
+
+
+        await ctx.message.channel.send("", embed=embed)
+
+        return
