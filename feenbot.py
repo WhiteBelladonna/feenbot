@@ -414,11 +414,21 @@ async def showVendors(ctx):
     if ctx.prefix == "!":
         if ctx.author.id == cred.admin:
 
+            async for message in ctx.channel.history(limit=50):
+                await message.delete()
+
             utd = util_discord.Permissions(cred.server2)
 
             await utd.printVendors(ctx)
 
             return
+
+        else:
+            await ctx.message.channel.send("Computer sagt nein.")
+            
+            print(str(ctx.author) + " tried to access command vendors! " + str(ctx.author.id))
+            return
+
 
 
 @bot.event

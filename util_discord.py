@@ -521,7 +521,7 @@ class Permissions():
 
                     catlist2.append(channel.id)
 
-        embed = discord.Embed(title="Übersicht aller Händler")
+        embed = discord.Embed(title="Übersicht aller Aussteller")
 
         vendorid = ""
 
